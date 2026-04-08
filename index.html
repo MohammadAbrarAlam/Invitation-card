@@ -613,7 +613,755 @@
             width: 100%;
         }
         .back-btn:hover { color: var(--gold); }
-    </style>
+            <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #fde047;
+            --green-deep: #0a3622;
+            --green-dark: #052415;
+            --red-rose: #c0392b;
+            --red-light: #e74c3c;
+            --cream: #fff8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: #000;
+            min-height: 100vh;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.8s ease;
+        }
+        .page.active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ======= PAGE 1: GUEST DETAILS ======= */
+        #page-guest {
+            background: radial-gradient(circle at center, var(--green-deep) 0%, #000 100%);
+        }
+
+        .guest-card {
+            background: var(--green-deep);
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 40px rgba(212,175,55,0.25), inset 0 0 30px rgba(0,0,0,0.4);
+            max-width: 520px;
+            width: 100%;
+            padding: 40px 36px;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .guest-card::before, .guest-card::after {
+            content: '';
+            position: absolute;
+            border: 1px solid rgba(212,175,55,0.35);
+            inset: 10px;
+            pointer-events: none;
+        }
+
+        .corner-orn {
+            position: absolute;
+            font-size: 2.5rem;
+            color: var(--gold);
+            opacity: 0.55;
+            line-height: 1;
+        }
+        .c-tl { top: 6px; left: 8px; }
+        .c-tr { top: 6px; right: 8px; transform: scaleX(-1); }
+        .c-bl { bottom: 6px; left: 8px; transform: scaleY(-1); }
+        .c-br { bottom: 6px; right: 8px; transform: scale(-1,-1); }
+
+        .lantern-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            opacity: 0.85;
+        }
+
+        .arabic-top {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-align: center;
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+
+        .translation {
+            font-size: 0.75rem;
+            color: var(--gold-light);
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 18px;
+        }
+
+        .divider-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 14px 0;
+            position: relative;
+        }
+        .divider-line::after {
+            content: "✦";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            color: var(--gold);
+            font-size: 11px;
+            background: var(--green-deep);
+            padding: 0 10px;
+        }
+
+        .moon-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-align: center;
+            display: block;
+            animation: pulse 3s infinite alternate;
+        }
+        @keyframes pulse {
+            from { text-shadow: 0 0 8px rgba(212,175,55,0.4); transform: scale(1); }
+            to { text-shadow: 0 0 20px rgba(212,175,55,0.9); transform: scale(1.07); }
+        }
+
+        .page-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            text-align: center;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .honor-text {
+            font-size: 0.95rem;
+            color: var(--gold-light);
+            text-align: center;
+            font-style: italic;
+            margin: 12px 0 20px;
+        }
+
+        .form-field {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 11px 14px;
+            border-radius: 4px;
+            margin-bottom: 14px;
+            width: 100%;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .form-field::placeholder { color: rgba(212,175,55,0.55); }
+        .form-field:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            background: rgba(255,255,255,0.12);
+            box-shadow: 0 0 12px rgba(212,175,55,0.3);
+        }
+
+        .btn-gold {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 11px 28px;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .btn-gold:hover {
+            background: var(--gold);
+            color: var(--green-deep);
+            box-shadow: 0 0 18px rgba(212,175,55,0.5);
+        }
+
+        /* WhatsApp send button */
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 11px 28px;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            box-shadow: 0 0 18px rgba(37,211,102,0.4);
+        }
+
+        .footer-note {
+            font-size: 0.7rem;
+            color: rgba(212,175,55,0.5);
+            text-align: center;
+            margin-top: 14px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        /* ======= PAGE 2: GIFT CARD ======= */
+        #page-gift {
+            background: linear-gradient(135deg, #da8018 0%, #4bcf17 40%, #268ee2 100%);
+        }
+
+        /* Make gift card clickable */
+        .gift-card {
+            background: var(--cream);
+            border: 3px solid var(--red-rose);
+            box-shadow: 0 10px 50px rgba(192,57,43,0.35), 0 0 0 8px rgba(192,57,43,0.08);
+            max-width: 560px;
+            width: 100%;
+            padding: 44px 40px;
+            position: relative;
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            user-select: none;
+        }
+        .gift-card:hover {
+            transform: scale(1.015);
+            box-shadow: 0 16px 60px rgba(192,57,43,0.5), 0 0 0 8px rgba(192,57,43,0.12);
+        }
+        .gift-card:active {
+            transform: scale(0.99);
+        }
+
+        /* Tap hint */
+        .tap-hint {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            color: var(--red-rose);
+            opacity: 0.6;
+            text-transform: uppercase;
+            animation: tapPulse 2s infinite;
+            white-space: nowrap;
+        }
+        @keyframes tapPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
+        }
+
+        .gift-card::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(192,57,43,0.3);
+            pointer-events: none;
+        }
+
+        .floral-corner {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.2;
+            line-height: 1;
+            color: var(--red-rose);
+        }
+        .fl-tl { top: 4px; left: 4px; }
+        .fl-tr { top: 4px; right: 4px; transform: scaleX(-1); }
+        .fl-bl { bottom: 4px; left: 4px; transform: scaleY(-1); }
+        .fl-br { bottom: 4px; right: 4px; transform: scale(-1,-1); }
+
+        .guest-greeting {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .guest-greeting h2 {
+            font-family:'Arial', 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            color: var(--red-rose);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .guest-name-display {
+            font-family:'Arial', 'Amiri', serif;
+            font-size: 2rem;
+            color: #8b1a1a;
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        .greet-msg {
+            font-size: 0.88rem;
+            color: #bc1414;
+            font-style: italic;
+            margin-top: 6px;
+        }
+
+        .divider-red {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--red-rose), transparent);
+            margin: 16px 0;
+            position: relative;
+        }
+        .divider-red::after {
+            content: "❀";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            color: var(--red-rose);
+            font-size: 13px;
+            background: var(--cream);
+            padding: 0 10px;
+        }
+
+        .heart-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+         /* Gift button */
+        .btn-red {
+            background: var(--red-rose);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(192,57,43,0.4);
+            margin-top: 10px;
+        }
+        .btn-red:hover {
+            background: #a93226;
+            box-shadow: 0 6px 20px rgba(192,57,43,0.6);
+            transform: translateY(-2px);
+        }
+
+        .bismi-text {
+            text-align: center;
+            font-family: 'Arial Black', 'Amiri', serif;
+            font-size: 2.5rem;
+            color: var(--red-rose);
+            letter-spacing: 5px;
+            word-spacing: 12px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .happy-wedding {
+            text-align: center;
+            font-family:'Arial', 'Cinzel', serif;
+            font-size:22px;
+            color: var(--red-rose);
+            font-style: bold;
+            letter-spacing: 3px;
+            padding-top: 20px;
+        }
+
+        .wedding-date-badge {
+            text-align: center;
+            font-size: 1rem;
+            font-family: 'Arial', 'Cinzel', serif;
+            color: #8b1a1a;
+            font-style: italic;
+            margin-top: 6px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        /* ======= PAGE 3: INVITATION CARD ======= */
+        #page-invitation {
+            background: radial-gradient(circle at center, var(--green-deep) 0%, #000 100%);
+        }
+
+        .invitation-card {
+            background: var(--green-deep);
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 30px rgba(212,175,55,0.2), inset 0 0 20px rgba(0,0,0,0.5);
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            padding: 40px;
+        }
+
+        .inner-border {
+            border: 1px solid rgba(212,175,55,0.5);
+            padding: 28px;
+        }
+
+        .gold-text { color: var(--gold); }
+        .light-gold { color: var(--gold-light); }
+
+        .inv-corner {
+            position: absolute;
+            font-size: 3.5rem;
+            color: var(--gold);
+            opacity: 0.55;
+            line-height: 1;
+        }
+        .ic-tl { top: 8px; left: 10px; }
+        .ic-tr { top: 8px; right: 10px; transform: scaleX(-1); }
+        .ic-bl { bottom: 8px; left: 10px; transform: scaleY(-1); }
+        .ic-br { bottom: 8px; right: 10px; transform: scale(-1,-1); }
+
+        .lantern-abs {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.8;
+            top: 20px;
+        }
+        .lan-l { left: 40px; }
+        .lan-r { right: 40px; }
+
+        .arabic-large {
+            font-family: 'Amiri', serif;
+            font-size: 2.4rem;
+            color: var(--gold);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .couple-section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 24px 0;
+            gap: 16px;
+        }
+
+        .person-box {
+            flex: 1;
+            text-align: center;
+            border-top: 1px solid rgba(212,175,55,0.3);
+            border-bottom: 1px solid rgba(212,175,55,0.3);
+            padding: 16px 10px;
+            position: relative;
+        }
+
+        .person-label {
+            position: absolute;
+            top: -10px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--green-deep);
+            padding: 0 10px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+        }
+
+        .person-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .person-hindi {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 0.95rem;
+            color: #ca8a04;
+            margin: 4px 0;
+        }
+
+        .person-sub {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+        }
+
+        .center-ornament {
+            font-size: 2.5rem;
+            color: var(--gold);
+            animation: pulse 3s infinite alternate;
+            flex-shrink: 0;
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 600px) {
+            .program-grid { grid-template-columns: repeat(2, 1fr); }
+            .couple-section { flex-direction: column; }
+            .person-name { font-size: 1.3rem; }
+        }
+
+        .prog-box {
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 6px;
+            padding: 12px 8px;
+            text-align: center;
+            background: rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .prog-box:hover {
+            border-color: var(--gold);
+            background: rgba(212,175,55,0.05);
+            transform: translateY(-4px);
+        }
+
+        .prog-date { font-size: 0.75rem; color: var(--gold-light); margin-bottom: 4px; }
+        .prog-name { font-size: 1.1rem; font-weight: 700; color: var(--gold); }
+        .prog-hindi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 0.65rem; color: #ca8a04; opacity: 0.8; margin: 3px 0; }
+        .prog-time { font-family: 'Cinzel', serif; font-size: 0.75rem; color: var(--gold); }
+
+        .inv-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .blessing-text {
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--gold);
+        }
+
+        .btn-outline-gold {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 10px 26px;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.3s;
+        }
+        .btn-outline-gold:hover {
+            background: var(--gold);
+            color: var(--green-deep);
+        }
+
+        .dua-footer {
+            font-size: 0.6rem;
+            color: rgba(212,175,55,0.4);
+            letter-spacing: 2px;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            margin-top: 16px;
+        }
+
+        .section-divider {
+            position: relative;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 20px auto;
+            width: 60%;
+        }
+        .section-divider span {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            background: var(--green-deep);
+            padding: 0 14px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: rgba(212,175,55,0.6);
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            text-transform: uppercase;
+            padding: 6px 0;
+            transition: color 0.2s;
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            width: 100%;
+        }
+        .back-btn:hover { color: var(--gold); }
+        /* ============================= */
+/* 📱 Small Mobile (<= 480px)   */
+/* ============================= */
+@media (max-width: 480px) {
+  .guest-card,
+  .gift-card,
+  .invitation-card {
+    padding: 20px 16px;
+  }
+
+  .page-title {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+  }
+
+  .arabic-top {
+    font-size: 1.3rem;
+  }
+
+  .guest-name-display {
+    font-size: 1.5rem;
+  }
+
+  .bismi-text {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+  }
+
+  .happy-wedding {
+    font-size: 16px;
+  }
+
+  .person-name {
+    font-size: 1.2rem;
+  }
+
+  .program-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lantern-row {
+    font-size: 1.6rem;
+  }
+}
+
+/* ============================= */
+/* 📱 Mobile (<= 768px)         */
+/* ============================= */
+@media (max-width: 768px) {
+  .guest-card,
+  .gift-card {
+    max-width: 95%;
+  }
+
+  .invitation-card {
+    padding: 25px;
+  }
+
+  .inner-border {
+    padding: 18px;
+  }
+
+  .arabic-large {
+    font-size: 1.8rem;
+  }
+
+  .couple-section {
+    flex-direction: column;
+  }
+
+  .center-ornament {
+    margin: 10px 0;
+  }
+
+  .program-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lantern-abs {
+    display: none; /* cleaner mobile UI */
+  }
+}
+
+/* ============================= */
+/* 💻 Tablet (769px - 1024px)   */
+/* ============================= */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .guest-card,
+  .gift-card {
+    max-width: 85%;
+  }
+
+  .invitation-card {
+    max-width: 95%;
+  }
+
+  .program-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .person-name {
+    font-size: 1.5rem;
+  }
+}
+
+/* ============================= */
+/* 🖥️ Laptop (1025px - 1440px) */
+/* ============================= */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .invitation-card {
+    max-width: 850px;
+  }
+
+  .program-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ============================= */
+/* 🖥️ Large Screens (1441px+)  */
+/* ============================= */
+@media (min-width: 1441px) {
+  .invitation-card {
+    max-width: 1000px;
+  }
+
+  .guest-card,
+  .gift-card {
+    max-width: 600px;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .person-name {
+    font-size: 2rem;
+  }
+}
+
+
+
+</style>
 </head>
 <body>
 
@@ -790,19 +1538,26 @@
 
             <div class="program-grid">
                 <div class="prog-box">
-                    <div class="prog-date">15th April 2028</div>
+                    <div class="prog-date">15th April 2026</div>
                     <div class="prog-name">Haldi</div>
                     <div class="prog-hindi">हल्दी समारोह</div>
                     <div class="prog-time">◆ 2:00 PM ◆</div>
                 </div>
                 <div class="prog-box">
-                    <div class="prog-date">17th April 2028</div>
+                    <div class="prog-date">17th April 2026</div>
                     <div class="prog-name">Miladunabi</div>
                     <div class="prog-hindi">मिलादुन्नबी</div>
                     <div class="prog-time">◆ 7:00 PM ◆</div>
                 </div>
                 <div class="prog-box">
-                    <div class="prog-date">18th April 2028</div>
+                    <div class="prog-date">18th April 2026</div>
+                    <div class="prog-name">Dep. Of Barat</div>
+                    <div class="prog-hindi">बारात प्रस्थान</div>
+                    <div class="prog-time">◆ 7:00 PM ◆</div>
+                </div>
+                
+                <div class="prog-box">
+                    <div class="prog-date">18th April 2026</div>
                     <div class="prog-name">Feast</div>
                     <div style="font-size:0.7rem; color:var(--gold-light); font-style:italic; opacity:0.85; margin:2px 0;">(Dawat-e-Taam)</div>
                     <div class="prog-time">◆ 12:00 PM ◆</div>
